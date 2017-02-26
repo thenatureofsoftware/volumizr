@@ -1,0 +1,18 @@
+sudo: required
+services:
+- docker
+language: bash
+script:
+# prepare qemu
+- docker run --rm --privileged multiarch/qemu-user-static:register --reset
+# build image
+- ./build.sh
+# test image
+#- docker run -it thenatureofsoftware/traefik-arm64 version
+# push image
+- >
+  if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
+    docker login -u="$DOCKER_USER" -p="$DOCKER_PASS"
+    docker push thenatureofsoftware/minio-arm64:latest
+    docker push thenatureofsoftware/mc-arm64:latest
+  fi
