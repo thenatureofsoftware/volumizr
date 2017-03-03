@@ -25,8 +25,11 @@ if [ ! -f ./mc/mc ]; then
   echo "mc done"
 fi
 
-echo "building server ..."
+echo "building minio server ..."
 docker build -t thenatureofsoftware/minio-arm64:latest ./server
 
-echo "building client ..."
+echo "building minio client ..."
 docker build -t thenatureofsoftware/mc-arm64:latest ./mc
+
+echo "building minio mirror ..."
+docker build -t thenatureofsoftware/mirror-arm64:latest ./mirror

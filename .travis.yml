@@ -15,4 +15,5 @@ script:
     docker login -u="$DOCKER_USER" -p="$DOCKER_PASS"
     docker push thenatureofsoftware/minio-arm64:latest
     docker push thenatureofsoftware/mc-arm64:latest
+    docker push thenatureofsoftware/mirror-arm64:latest
   fi

@@ -1,8 +1,6 @@
-FROM thenatureofsoftware/alpine-arm64:latest
+FROM scratch
 
 COPY qemu-aarch64-static /usr/bin/qemu-aarch64-static
-COPY mc /usr/local/bin/mc
+COPY mc /mc
 
-VOLUME ["/export"]
-
-ENTRYPOINT ["mc"]
+ENTRYPOINT ["/mc"]
