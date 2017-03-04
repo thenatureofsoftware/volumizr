@@ -9,4 +9,4 @@ COPY config-mc.json /app/config/config.json
 
 VOLUME /app/config
 
-ENTRYPOINT ["/mc", "-C", "/app/config"]
+ENTRYPOINT ["/mc", "--quiet", "-C", "/app/config"]

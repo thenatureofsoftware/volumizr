@@ -31,5 +31,5 @@ while [ true ]; do
     sleep $WAIT_TIME
   fi
   #echo "mc --no-color -C /app/config mirror --remove --force $SOURCE $TARGET"
-  mc --no-color -C /app/config mirror --remove --force $SOURCE $TARGET
+  mc --quiet --no-color -C /app/config mirror --remove --force $SOURCE $TARGET
 done
