@@ -1,0 +1,17 @@
+FROM thenatureofsoftware/alpine-arm64:latest
+
+ENV HOME=/app
+
+COPY mc /usr/local/bin
+COPY mc-mirror /app/mc-mirror
+COPY qemu-aarch64-static /usr/bin/qemu-aarch64-static
+
+RUN mkdir -p /app/source && mkdir /app/target && mkdir /app/config
+
+VOLUME /source
+VOLUME /target
+VOLUME /app/config
+
+ENTRYPOINT ["/app/mc-mirror"]
+
+CMD ["/source", "/target"]

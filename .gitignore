@@ -1,3 +1,5 @@
+.DS_Store
 qemu-aarch64-static
-mc/mc
-server/minio
+minio
+mc
+tmp

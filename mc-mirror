@@ -1,0 +1,24 @@
+#!/bin/sh
+
+SOURCE=${1:-/source}
+TARGET=${2:-/target}
+WAIT_TIME=${WAIT_TIME:-3}
+STOP=0
+
+trap ctrl_c INT
+
+function ctrl_c() {
+  echo " CTRL-C stopping..."
+  STOP=1
+}
+
+while [ true ]; do
+  if [ $STOP -eq 1 ]; then
+    echo "mc-mirror stopped"
+    exit 0
+  else
+    sleep $WAIT_TIME
+  fi
+  #echo "mc --no-color -C /app/config mirror --remove --force $SOURCE $TARGET"
+  mc --no-color -C /app/config mirror --remove --force $SOURCE $TARGET
+done
