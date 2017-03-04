@@ -1,7 +1,17 @@
 #!/bin/sh
 
-SOURCE=${1:-/source}
-TARGET=${2:-/target}
+if [ "$1" == "" ]; then
+  echo "no source set"
+  exit 1
+fi
+
+if [ "$2" == "" ]; then
+  echo "no target set"
+  exit 1
+fi
+
+SOURCE=${SOURCE:-$(echo $1)}
+TARGET=${TARGET:-$(echo $2)}
 WAIT_TIME=${WAIT_TIME:-3}
 STOP=0
 
@@ -13,6 +23,7 @@ function ctrl_c() {
 }
 
 while [ true ]; do
+  echo "mirroring from $SOURCE to $TARGET"
   if [ $STOP -eq 1 ]; then
     echo "mc-mirror stopped"
     exit 0
