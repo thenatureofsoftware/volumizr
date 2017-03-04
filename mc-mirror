@@ -22,8 +22,8 @@ function ctrl_c() {
   STOP=1
 }
 
+echo "mc-mirror mirroring from $SOURCE to $TARGET"
 while [ true ]; do
-  echo "mirroring from $SOURCE to $TARGET"
   if [ $STOP -eq 1 ]; then
     echo "mc-mirror stopped"
     exit 0

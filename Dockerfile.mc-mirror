@@ -1,12 +1,15 @@
 FROM thenatureofsoftware/alpine-arm64:latest
 
+MAINTAINER https://github.com/larmog
+
 ENV HOME=/app
 
 COPY mc /usr/local/bin
 COPY mc-mirror /app/mc-mirror
 COPY qemu-aarch64-static /usr/bin/qemu-aarch64-static
+COPY config-mc.json /app/config/config.json
 
-RUN mkdir -p /app/source && mkdir /app/target && mkdir /app/config
+RUN mkdir /app/source && mkdir /app/target
 
 VOLUME /source
 VOLUME /target
