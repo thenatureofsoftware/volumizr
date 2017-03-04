@@ -1,9 +1,11 @@
 {
 	"version": "8",
-	"minio": {
-		"url": "http://minio-0:9000",
-		"accessKey": "9CLXA58B6YTGPXTZBGCV",
-		"secretKey": "wWJsxe7DPGLPxQkHgeCz7ObDxG89wzhYGRUA5o51",
-		"api": "S3v4"
+	"hosts": {
+	  "minio": {
+		  "url": "http://minio-0:9000",
+		  "accessKey": "9CLXA58B6YTGPXTZBGCV",
+		  "secretKey": "wWJsxe7DPGLPxQkHgeCz7ObDxG89wzhYGRUA5o51",
+		  "api": "S3v4"
+	  }
 	}
 }
