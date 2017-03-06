@@ -10,7 +10,6 @@ if [ "$2" == "" ]; then
   exit 1
 fi
 
-BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 SOURCE=${SOURCE:-$(echo $1)}
 TARGET=${TARGET:-$(echo $2)}
 WAIT_TIME=${WAIT_TIME:-3}
@@ -24,7 +23,7 @@ function ctrl_c() {
 }
 
 echo "mc-mirror mirroring from $SOURCE to $TARGET"
-touch $BASEDIR/timestamp
+touch /app/timestamp
 
 while [ true ]; do
   if [ $STOP -eq 1 ]; then
@@ -34,11 +33,11 @@ while [ true ]; do
     sleep $WAIT_TIME
   fi
 
-  for file in $(find $SOURCE -newer $BASEDIR/timestamp);
+  for file in $(find $SOURCE -type f -newer /app/timestamp);
   do
-    echo "mc-mirror copying file: $file"
-    mc --quiet --no-color -C /app/config cp $(basename $file $SOURCE) $TARGET/
+    mc --quiet --no-color -C /app/config cp $file ${TARGET}${file#$SOURCE}
+    touch $file
   done
   mc --quiet --no-color -C /app/config mirror --remove --force $SOURCE $TARGET
-  touch $BASEDIR/timestamp
+  touch /app/timestamp
 done
