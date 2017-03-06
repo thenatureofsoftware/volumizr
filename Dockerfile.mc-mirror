@@ -17,4 +17,4 @@ VOLUME /app/config
 
 ENTRYPOINT ["/app/mc-mirror"]
 
-CMD ["/source", "/target"]
+CMD ["/app/source", "/app/target"]
