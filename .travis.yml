@@ -18,7 +18,7 @@ script:
     docker push thenatureofsoftware/mc-arm64:latest
     docker push thenatureofsoftware/mc-mirror-arm:latest
     docker push thenatureofsoftware/mc-mirror-arm64:latest
-    .work/manifest-tool --username "$DOCKER_USER" --password "$DOCKER_PASS" push from-spec manifest-minio.yml
-    .work/manifest-tool --username "$DOCKER_USER" --password "$DOCKER_PASS" push from-spec manifest-mc.yml
-    .work/manifest-tool --username "$DOCKER_USER" --password "$DOCKER_PASS" push from-spec manifest-mc-mirror.yml
+    .work/manifest-tool push from-spec manifest-minio.yml
+    .work/manifest-tool push from-spec manifest-mc.yml
+    .work/manifest-tool push from-spec manifest-mc-mirror.yml
   fi
