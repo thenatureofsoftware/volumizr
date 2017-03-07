@@ -1,0 +1,12 @@
+image: thenatureofsoftware/mc:latest
+manifests:
+  -
+    image: thenatureofsoftware/mc-arm:latest
+    platform:
+      architecture: arm
+      os: linux
+  -
+    image: thenatureofsoftware/mc-arm64:latest
+    platform:
+      architecture: arm64
+      os: linux

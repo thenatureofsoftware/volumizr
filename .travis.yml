@@ -12,8 +12,7 @@ script:
 # push image
 - >
   if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
-    docker login -u="$DOCKER_USER" -p="$DOCKER_PASS"
-    docker push thenatureofsoftware/minio-arm64:latest
-    docker push thenatureofsoftware/mc-arm64:latest
-    docker push thenatureofsoftware/mc-mirror-arm64:latest
+    .work/manifest-tool --username "$DOCKER_USER" --password "$DOCKER_PASS" push manifest-minio.yml
+    .work/manifest-tool --username "$DOCKER_USER" --password "$DOCKER_PASS" push manifest-mc.yml
+    .work/manifest-tool --username "$DOCKER_USER" --password "$DOCKER_PASS" push manifest-mc-mirror.yml
   fi

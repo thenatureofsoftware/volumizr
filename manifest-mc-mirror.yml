@@ -1,0 +1,12 @@
+image: thenatureofsoftware/mc-mirror:latest
+manifests:
+  -
+    image: thenatureofsoftware/mc-mirror-arm:latest
+    platform:
+      architecture: arm
+      os: linux
+  -
+    image: thenatureofsoftware/mc-mirror-arm64:latest
+    platform:
+      architecture: arm64
+      os: linux

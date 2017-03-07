@@ -1,5 +1,3 @@
 .DS_Store
-qemu-aarch64-static
-minio
-mc
 tmp
+.work

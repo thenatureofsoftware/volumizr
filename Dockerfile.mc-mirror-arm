@@ -1,12 +1,12 @@
-FROM thenatureofsoftware/alpine-arm64:latest
+FROM hypriot/rpi-alpine
 
 MAINTAINER https://github.com/larmog
 
 ENV HOME=/app
 
-COPY mc /usr/local/bin
+COPY .work/mc-arm /usr/local/bin/mc
 COPY mc-mirror /app/mc-mirror
-COPY qemu-aarch64-static /usr/bin/qemu-aarch64-static
+COPY .work/qemu-arm-static /usr/bin/qemu-arm-static
 COPY config-mc.json /app/config/config.json
 
 RUN mkdir /app/source && mkdir /app/target

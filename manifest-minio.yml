@@ -1,0 +1,12 @@
+image: thenatureofsoftware/minio:latest
+manifests:
+  -
+    image: thenatureofsoftware/minio-arm:latest
+    platform:
+      architecture: arm
+      os: linux
+  -
+    image: thenatureofsoftware/minio-arm64:latest
+    platform:
+      architecture: arm64
+      os: linux

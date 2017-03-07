@@ -2,7 +2,8 @@ FROM scratch
 
 MAINTAINER https://github.com/larmog
 
-COPY minio /minio
+COPY .work/qemu-aarch64-static /usr/bin/qemu-aarch64-static
+COPY .work/minio-arm64 /minio
 COPY config-minio.json /app/config/config.json
 
 VOLUME ["/export"]
