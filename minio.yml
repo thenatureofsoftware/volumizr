@@ -27,7 +27,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
       - name: minio
-        image: thenatureofsoftware/minio-arm64:latest
+        image: thenatureofsoftware/minio:latest
         args:
         - server
         - /export
