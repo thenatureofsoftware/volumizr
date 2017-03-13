@@ -4,7 +4,7 @@
 		"accessKey": "9CLXA58B6YTGPXTZBGCV",
 		"secretKey": "wWJsxe7DPGLPxQkHgeCz7ObDxG89wzhYGRUA5o51"
 	},
-	"region": "north",
+	"region": "us-east-1",
 	"logger": {
 		"console": {
 			"enable": true,
