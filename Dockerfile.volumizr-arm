@@ -5,16 +5,19 @@ MAINTAINER https://github.com/larmog
 ENV HOME=/app
 
 COPY .work/mc-arm /usr/local/bin/mc
-COPY mc-mirror /app/mc-mirror
+COPY volumizr.sh /app/volumizr
 COPY .work/qemu-arm-static /usr/bin/qemu-arm-static
 COPY config-mc.json /app/config/config.json
 
-RUN mkdir /app/source && mkdir /app/target
+RUN apk add --update bash \
+  && rm -rf /var/cache/apk/* \
+  && mkdir /app/source \
+  && mkdir /app/target
 
 VOLUME /source
 VOLUME /target
 VOLUME /app/config
 
-ENTRYPOINT ["/app/mc-mirror"]
+ENTRYPOINT ["/app/volumizr"]
 
-CMD ["/app/source", "/app/target"]
+CMD ["in", "/app/source", "/app/target"]

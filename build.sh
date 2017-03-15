@@ -53,5 +53,5 @@ docker build -t thenatureofsoftware/mc-arm:latest -f Dockerfile.mc-arm .
 docker build -t thenatureofsoftware/mc-arm64:latest -f Dockerfile.mc-arm64 .
 
 echo "building minio mirror ..."
-docker build -t thenatureofsoftware/mc-mirror-arm:latest -f Dockerfile.mc-mirror-arm .
-docker build -t thenatureofsoftware/mc-mirror-arm64:latest -f Dockerfile.mc-mirror-arm64 .
+docker build -t thenatureofsoftware/volumizr-arm:latest -f Dockerfile.volumizr-arm .
+docker build -t thenatureofsoftware/volumizr-arm64:latest -f Dockerfile.volumizr-arm64 .

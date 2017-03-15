@@ -1,0 +1,12 @@
+image: thenatureofsoftware/volumizr:latest
+manifests:
+  -
+    image: thenatureofsoftware/volumizr-arm:latest
+    platform:
+      architecture: arm
+      os: linux
+  -
+    image: thenatureofsoftware/volumizr-arm64:latest
+    platform:
+      architecture: arm64
+      os: linux
