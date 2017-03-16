@@ -6,6 +6,7 @@
 BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 WAIT_TIME=5
 STOP=0
+CONF="--quiet --no-color -C /app/config"
 
 trap volumizr:ctrl-c INT
 
@@ -15,20 +16,20 @@ volumizr:ctrl-c() {
 }
 
 volumizr:in() {
-  mc mb -q $1 > /dev/null 2>&1
+  mc $CONF mb $1 > /dev/null 2>&1
   echo "volumizr in created bucket $1 if it didn't exist"
 
   echo "volumizr in mirroring from $1 to $2"
-  mc mirror --quiet --no-color -C /app/config --remove --force $1 $2
+  mc $CONF mirror --remove --force $1 $2
 }
 
 volumizr:mirror() {
   for file in $(find $1 -type f -newer /app/timestamp);
   do
-    mc cp --quiet --no-color -C /app/config $file ${2}${file#$1}
+    mc $CONF cp $file ${2}${file#$1}
     touch $file
   done
-  mc mirror --quiet --no-color -C /app/config --remove --force $1 $2
+  mc $CONF mirror --remove --force $1 $2
   touch /app/timestamp
 }
 
