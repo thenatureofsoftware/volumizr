@@ -17,9 +17,9 @@ script:
     docker push thenatureofsoftware/minio-arm64:latest
     docker push thenatureofsoftware/mc-arm:latest
     docker push thenatureofsoftware/mc-arm64:latest
-    docker push thenatureofsoftware/mc-mirror-arm:latest
-    docker push thenatureofsoftware/mc-mirror-arm64:latest
+    docker push thenatureofsoftware/volumizr-arm:latest
+    docker push thenatureofsoftware/volumizr-arm64:latest
     .work/manifest-tool push from-spec manifest-minio.yml
     .work/manifest-tool push from-spec manifest-mc.yml
-    .work/manifest-tool push from-spec manifest-mc-mirror.yml
+    .work/manifest-tool push from-spec manifest-volumizr.yml
   fi
