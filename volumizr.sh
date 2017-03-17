@@ -34,6 +34,20 @@ volumizr:mirror() {
 }
 
 volumizr:out() {
+  while getopts "w:" opt; do
+    case $opt in
+      w)
+        WAIT_TIME=$OPTARG
+        echo "volumizr out mirroring every $WAIT_TIME second" >&2
+        shift $((OPTIND-1))
+        ;;
+      \?)
+        echo "Invalid option: -$OPTARG" >&2
+        usage
+        ;;
+    esac
+  done
+
   echo "volumizr out mirroring from $1 to $2"
   touch /app/timestamp
 
@@ -46,6 +60,7 @@ volumizr:out() {
     else
       sleep $WAIT_TIME
     fi
+    echo "mirroring from $1 to $2"
     volumizr:mirror $1 $2
   done
 }
@@ -61,8 +76,12 @@ volumizr --help | help
 volumizr in <source> <target>
 Example: volumizr in minio/mysql0 /var/lib/mysql
 
-volumizr out <source> <target>
-Example: volumizr out /var/lib/mysql minio/mysql0
+volumizr out [FLAGS] <source> <target>
+
+FLAGS:
+ -w    wait time in seconds between mirroring
+
+Example: volumizr out -w 30 /var/lib/mysql minio/mysql0
 
 EOF
 }
@@ -92,7 +111,7 @@ case "$COMMAND" in
     volumizr:in "$1" "$2"
     ;;
     out)
-    volumizr:out "$1" "$2"
+    volumizr:out $@
     ;;
     *)
     echo "Unknown volumizr command '$COMMAND'" >&2
