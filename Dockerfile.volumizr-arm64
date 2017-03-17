@@ -9,8 +9,7 @@ COPY volumizr.sh /app/volumizr
 COPY .work/qemu-aarch64-static /usr/bin/qemu-aarch64-static
 COPY config-mc.json /app/config/config.json
 
-RUN apk add --update bash \
-  && rm -rf /var/cache/apk/* \
+RUN apk --no-cache add bash \
   && mkdir /app/source \
   && mkdir /app/target
 

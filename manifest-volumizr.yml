@@ -10,3 +10,8 @@ manifests:
     platform:
       architecture: arm64
       os: linux
+  -
+    image: thenatureofsoftware/volumizr-amd64:latest
+    platform:
+      architecture: amd64
+      os: linux

@@ -1,12 +1,11 @@
-FROM hypriot/rpi-alpine
+FROM alpine:3.5
 
 MAINTAINER https://github.com/larmog
 
 ENV HOME=/app
 
-COPY .work/mc-arm /usr/local/bin/mc
+COPY .work/mc-amd64 /usr/local/bin/mc
 COPY volumizr.sh /app/volumizr
-COPY .work/qemu-arm-static /usr/bin/qemu-arm-static
 COPY config-mc.json /app/config/config.json
 
 RUN apk --no-cache add bash \

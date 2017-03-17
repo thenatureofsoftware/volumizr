@@ -40,6 +40,7 @@ if [ ! -f $WORKDIR/mc-arm ]; then
   echo "downloading mc ..."
   wget -q -O $WORKDIR/mc-arm https://dl.minio.io/client/mc/release/linux-arm/mc
   wget -q -O $WORKDIR/mc-arm64 https://dl.minio.io/client/mc/release/linux-arm64/mc
+  wget -q -O $WORKDIR/mc-amd64 https://dl.minio.io/client/mc/release/linux-amd64/mc
   chmod a+x $WORKDIR/mc-*
   echo "mc done"
 fi
@@ -52,6 +53,7 @@ echo "building minio client ..."
 docker build -t thenatureofsoftware/mc-arm:latest -f Dockerfile.mc-arm .
 docker build -t thenatureofsoftware/mc-arm64:latest -f Dockerfile.mc-arm64 .
 
-echo "building minio mirror ..."
+echo "building volumizr ..."
 docker build -t thenatureofsoftware/volumizr-arm:latest -f Dockerfile.volumizr-arm .
 docker build -t thenatureofsoftware/volumizr-arm64:latest -f Dockerfile.volumizr-arm64 .
+docker build -t thenatureofsoftware/volumizr-amd64:latest -f Dockerfile.volumizr-amd64 .

@@ -1,0 +1,43 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: volumizr
+  name: volumizr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: volumizr
+  template:
+    metadata:
+      labels:
+        app: volumizr
+      annotations:
+        pod.beta.kubernetes.io/init-containers:
+          '[{
+          "name": "volumizr-in",
+          "image": "thenatureofsoftware/volumizr:latest",
+          "imagePullPolicy": "Always",
+          "args": ["in", "minio/volumizr", "/app/data"],
+          "volumeMounts": [{
+            "mountPath": "/app/data",
+            "name": "persistentdata"
+          }]
+        }]'
+    spec:
+      containers:
+      - image: thenatureofsoftware/volumizr:latest
+        imagePullPolicy: Always
+        name: volumizr
+        args:
+        - out
+        - /app/data
+        - minio/volumizr
+        volumeMounts:
+        - mountPath: "/app/data"
+          name: persistentdata
+      restartPolicy: Always
+      volumes:
+      - name: persistentdata
+        emptyDir: {}
