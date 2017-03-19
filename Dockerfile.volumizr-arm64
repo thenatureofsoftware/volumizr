@@ -1,12 +1,11 @@
-FROM thenatureofsoftware/alpine-arm64:latest
+FROM multiarch/alpine:aarch64-v3.5
 
 MAINTAINER https://github.com/larmog
 
 ENV HOME=/app
 
-COPY .work/mc-arm64 /usr/local/bin/mc
+COPY .work/mc-arm64 /usr/bin/mc
 COPY volumizr.sh /app/volumizr
-COPY .work/qemu-aarch64-static /usr/bin/qemu-aarch64-static
 COPY config-mc.json /app/config/config.json
 
 RUN apk --no-cache add bash \

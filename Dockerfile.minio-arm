@@ -1,14 +1,13 @@
-FROM scratch
+FROM multiarch/alpine:armhf-v3.5
 
 MAINTAINER https://github.com/larmog
 
-COPY .work/qemu-arm-static /usr/bin/qemu-arm-static
-COPY .work/minio-arm /minio
+COPY .work/minio-arm /usr/bin/minio
 COPY config-minio.json /app/config/config.json
 
 VOLUME ["/export"]
 
 EXPOSE 9000
-ENTRYPOINT ["/minio", "-C", "/app/config"]
+ENTRYPOINT ["minio", "-C", "/app/config"]
 
 CMD ["version"]

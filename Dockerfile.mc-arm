@@ -1,12 +1,11 @@
-FROM scratch
+FROM multiarch/alpine:armhf-v3.5
 
 MAINTAINER https://github.com/larmog
 
-COPY .work/qemu-arm-static /usr/bin/qemu-arm-static
-COPY .work/mc-arm /mc
+COPY .work/mc-arm /usr/bin/mc
 
 COPY config-mc.json /app/config/config.json
 
 VOLUME /app/config
 
-ENTRYPOINT ["/mc", "--quiet", "-C", "/app/config"]
+ENTRYPOINT ["mc", "--quiet", "-C", "/app/config"]
