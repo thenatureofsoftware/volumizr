@@ -1,0 +1,131 @@
+apiVersion: v1
+kind: Secret
+data:
+  postgres-password: djZrZXFpT3dwRQ==
+metadata:
+  labels:
+    app: postgresql
+  name: postgresql
+type: Opaque
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: postgresql
+  name: postgresql
+spec:
+  ports:
+  - name: "5432"
+    port: 5432
+    protocol: TCP
+    targetPort: 5432
+  selector:
+    app: postgresql
+---
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  labels:
+    app: postgresql
+  name: postgresql
+spec:
+  serviceName: "postgresql"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgresql
+  template:
+    metadata:
+      labels:
+        app: postgresql
+      annotations:
+        pod.beta.kubernetes.io/init-containers:
+          '[{
+          "name": "volumizr-in",
+          "image": "thenatureofsoftware/volumizr:latest",
+          "args": ["in", "minio/postgresql", "/var/lib/postgresql/data/pgdata"],
+          "volumeMounts": [{
+            "mountPath": "/var/lib/postgresql/data/pgdata",
+            "name": "data"
+          }]
+        },
+        {
+          "name": "chown",
+          "image": "aarch64/postgres:9.6-alpine",
+          "command": ["chown", "-R", "postgres:postgres", "/var/lib/postgresql/data/pgdata"],
+          "volumeMounts": [{
+            "mountPath": "/var/lib/postgresql/data/pgdata",
+            "name": "data"
+          }]
+        }]'
+    spec:
+      containers:
+      - env:
+        - name: POSTGRES_USER
+          value: postgres
+        - name: PGUSER
+          value: postgres
+        - name: POSTGRES_DB
+        - name: PGDATA
+          value: /var/lib/postgresql/data/pgdata
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: postgres-password
+              name: pondering-sasquatch-postgresql
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: status.podIP
+        image: aarch64/postgres:9.6-alpine
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - exec pg_isready --host $POD_IP
+          failureThreshold: 6
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 5
+        name: postgresql
+        ports:
+        - containerPort: 5432
+          name: postgresql
+          protocol: TCP
+        readinessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - exec pg_isready --host $POD_IP
+          failureThreshold: 3
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 3
+        resources:
+          requests:
+            cpu: 100m
+            memory: 256Mi
+        volumeMounts:
+        - mountPath: /var/lib/postgresql/data/pgdata
+          name: data
+          subPath: postgresql-db
+      - image: thenatureofsoftware/volumizr:latest
+        imagePullPolicy: Always
+        name: volumizr-out
+        args:
+        - out
+        - /var/lib/postgresql/data/pgdata
+        - minio/postgresql
+        volumeMounts:
+        - mountPath: "/var/lib/postgresql/data/pgdata"
+          name: data
+      volumes:
+      - emptyDir: {}
+        name: data
